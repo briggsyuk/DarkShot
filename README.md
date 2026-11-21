@@ -10,7 +10,13 @@ Lightshot are workflow references; their code and artwork are not included.
 
 ## Run
 
-Clone the repository and build the app locally:
+Download the Apple Silicon ZIP from **[GitHub Releases](https://github.com/briggsyuk/DarkShot/releases/latest)**,
+unzip it, and move `DarkShot.app` into `/Applications` before opening it.
+The prebuilt app requires **macOS 14+ on Apple Silicon**.
+
+**This early release is ad-hoc signed, not Developer ID signed or notarized.**
+macOS Gatekeeper may block a downloaded copy. Only approve it if you trust its
+source, or build it yourself:
 
 ```sh
 git clone https://github.com/briggsyuk/DarkShot.git
@@ -115,6 +121,18 @@ granted again after rebuilds. For distribution, use a stable Developer ID
 signing identity, notarization, and stapling; those require an Apple developer
 account and are not configured here. The script accepts `SIGN_IDENTITY` for a
 signing identity you already have.
+
+### Package a release
+
+```sh
+zsh scripts/package-release.sh
+```
+
+This runs an optimized release build, verifies its code signature, and produces
+a versioned ZIP and `SHA256SUMS` under `dist/releases/<version>/`. The filename
+identifies the architecture actually built; it does not cross-compile.
+The version comes from `Resources/Info.plist`. Packaging does not publish to
+GitHub or notarize the app.
 
 ## Checks
 
